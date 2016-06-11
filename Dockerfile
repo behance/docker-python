@@ -11,7 +11,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
     S6_KILL_FINISH_MAXTIME=5000 \
     S6_KILL_GRACETIME=3000 \
-    LANG=C.UTF-8
+    LANG=C.UTF-8 \
+    APP_ROOT=/app
 
 RUN locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8 && \
     # Install pre-reqs \
