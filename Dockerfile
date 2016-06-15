@@ -30,8 +30,8 @@ RUN locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8 && \
       python-pip \
       python2.7-dev \
     && \
-    easy_install --upgrade pip && \
-    easy_install --upgrade setuptools && \
+    pip install --upgrade pip && \
+    pip install --upgrade setuptools && \
     apt-get remove --purge -yq \
       software-properties-common \
       manpages \
