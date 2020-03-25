@@ -14,24 +14,25 @@ ENV DEBIAN_FRONTEND=noninteractive \
     LANG=C.UTF-8 \
     APP_ROOT=/app
 
-RUN locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8 && \
+RUN apt-get clean && apt-get update && apt-get install -y locales && \
+    locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8 && \
     # Install pre-reqs \
     apt-get update && \
     apt-get upgrade -yqq && \
     apt-get -yqq  install \
       software-properties-common \
     && \
-    # Install python3.8 from a PPA
-    add-apt-repository ppa:fkrull/deadsnakes-python3.8 && \
+    # Install python3.6 from a PPA
+    add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     apt-get upgrade -yqq && \
     apt-get -yqq install \
-      python3.8 \
-      python-pip \
-      python3.8-dev \
+      python3.6\
+      python3-pip \
+      python3.6-dev \
     && \
-    pip install --upgrade pip && \
-    pip install --upgrade setuptools && \
+    pip3 install --upgrade pip && \
+    pip3 install --upgrade setuptools && \
     apt-get remove --purge -yq \
       software-properties-common \
       manpages \
