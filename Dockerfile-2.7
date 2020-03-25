@@ -1,5 +1,5 @@
-FROM ubuntu:14.04
-MAINTAINER Manuel Toledo <mtoledo@adobe.com>
+FROM ubuntu:18.04
+LABEL maintainer="Manuel Toledo <mtoledo@adobe.com>"
 
 # Use in multi-phase builds, when an init process requests for the container to gracefully exit, so that it may be committed
 # Used with alternative CMD (worker.sh), leverages supervisor to maintain long-running processes
@@ -14,7 +14,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     LANG=C.UTF-8 \
     APP_ROOT=/app
 
-RUN locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8 && \
+RUN apt-get clean && apt-get update && apt-get install -y locales && \
+    locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8 && \
     # Install pre-reqs \
     apt-get update && \
     apt-get upgrade -yqq && \
@@ -22,7 +23,7 @@ RUN locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8 && \
       software-properties-common \
     && \
     # Install python2.7 from a PPA
-    add-apt-repository ppa:fkrull/deadsnakes-python2.7 && \
+    add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     apt-get upgrade -yqq && \
     apt-get -yqq install \
