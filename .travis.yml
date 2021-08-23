@@ -6,3 +6,4 @@ services:
 script:
 - docker build -f Dockerfile-2.7 .
 - docker build -f Dockerfile-3.6 .
+- docker build -f Dockerfile-3.9 .
