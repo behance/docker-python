@@ -1,5 +1,5 @@
-FROM ubuntu:14.04
-MAINTAINER Manuel Toledo <mtoledo@adobe.com>
+FROM ubuntu:20.04
+LABEL maintainer="DL-devops-behance <devops-behance@adobe.com>"
 
 # Use in multi-phase builds, when an init process requests for the container to gracefully exit, so that it may be committed
 # Used with alternative CMD (worker.sh), leverages supervisor to maintain long-running processes
@@ -14,24 +14,25 @@ ENV DEBIAN_FRONTEND=noninteractive \
     LANG=C.UTF-8 \
     APP_ROOT=/app
 
-RUN locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8 && \
+RUN apt-get clean && apt-get update && apt-get install -y locales && \
+    locale-gen en_US.UTF-8 && export LANG=en_US.UTF-8 && \
     # Install pre-reqs \
     apt-get update && \
     apt-get upgrade -yqq && \
     apt-get -yqq  install \
       software-properties-common \
     && \
-    # Install python2.7 from a PPA
+    # Install python3.9 from a PPA
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     apt-get upgrade -yqq && \
     apt-get -yqq install \
-      python2.7 \
-      python-pip \
-      python2.7-dev \
+      python3.9\
+      python3-pip \
+      python3.9-dev \
     && \
-    pip install --upgrade pip && \
-    pip install --upgrade setuptools && \
+    pip3 install --upgrade pip && \
+    pip3 install --upgrade setuptools && \
     apt-get remove --purge -yq \
       software-properties-common \
       manpages \
